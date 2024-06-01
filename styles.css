@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #111;
@@ -7,18 +7,27 @@ body {
 }
 
 .container {
-    max-width: 600px;
-    margin: 50px auto;
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #000;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
-    text-align: center;
-    color: #e50914;
+.header {
+    display: flex;
+    align-items: center;
     margin-bottom: 20px;
+}
+
+.header img {
+    width: 80px;
+    margin-right: 20px;
+}
+
+.header h1 {
+    font-family: 'Netflix Sans', sans-serif;
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
 }
 
 .input-container {
@@ -26,14 +35,16 @@ h1 {
 }
 
 input {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 10px;
-    border: 1px solid #e50914;
+    border: none;
     border-radius: 5px;
     font-size: 16px;
     background-color: #333;
     color: #fff;
+    outline: none;
 }
+
 
 .lists-container {
     display: flex;
@@ -45,7 +56,9 @@ input {
 }
 
 h2 {
-    color: #e50914;
+    font-family: 'Netflix Sans', sans-serif;
+    font-size: 24px;
+    color: #fff;
     margin-bottom: 10px;
 }
 
@@ -55,16 +68,21 @@ ul {
 }
 
 li {
+    position: relative;
     background-color: #222;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 5px;
 }
 
-li:hover {
-    background-color: #333;
+
+input[type="checkbox"] {
+    position: absolute;
+    top: 50%;
+    right: -150px; 
+    transform: translateY(-50%);
 }
 
-.checkbox {
-    margin-right: 5px;
+li:hover {
+    background-color: #333;
 }
