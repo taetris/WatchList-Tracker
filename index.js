@@ -2,14 +2,45 @@ const itemsPending = document.getElementById("items_pending");
 const itemsCompleted = document.getElementById("items_completed");
 
 const input = document.getElementById("input");
-
+const debounceTime = 2000;
 // Event listener for adding items on "Enter" key press
 input.addEventListener("keyup", (e) =>{
+    
+    //implement debouncer here
+    
     if(e.key === "Enter" && input.value.trim() !== "") {
-        addItemToPending(input.value.trim());
+        //search using api here
+        let query = input.value.trim();
+        makeAPICall(query, showAPIResults, addItemToPending);
+
+
+        // addItemToPending(query);
         input.value = "";
     }
 })
+
+
+async function makeAPICall(query, showAPIResults, addItemToPending){
+    const req =  await fetch(`https://api.tvmaze.com/search/shows?q=${query}`);
+    const results = await req.json();
+    // console.log(res);
+    showAPIResults(results, addItemToPending);
+}
+
+
+const showAPIResults = (results) => {
+    const dropdownContainer = document.getElementById('searchDropdown');
+
+    results.forEach((result) => {
+        let movieName = result.show.name;
+        const option = document.createElement('option');
+        option.value = movieName;
+        option.textContent = movieName;
+        dropdownContainer.appendChild(option);
+    })
+        // Clear previous results
+        dropdownContainer.innerHTML = '';
+    }
 
 // Event listener for moving items between lists when checkbox is checked
 itemsPending.addEventListener("change", (e) => {
@@ -75,7 +106,7 @@ const addItemToPending = (item) => {
 
 
 
-
+// ---------------------------------------------------------------------
 
 const body = `Hey! It's me, Tripti.
 
