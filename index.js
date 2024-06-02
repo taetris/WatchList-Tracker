@@ -15,16 +15,42 @@ input.addEventListener("keyup", (e) =>{
 itemsPending.addEventListener("change", (e) => {
     if (e.target.type === "checkbox" && e.target.checked) {
         const checkboxId = e.target.id;
+
         const id = checkboxId.split("-")[1];
         const itemValue = document.getElementById(`item-${id}`).innerHTML;
-        addItemToCompleted(itemValue);
+        
+        addItemToCompleted(itemValue, id);
         removeItemFromPending(id);
     }
 });
 
+itemsCompleted.addEventListener("keypress", (e) => {
+    if(e.target.type === "email" && e.key === "Enter") {
+        const id = e.target.id.split("-")[1];
+        const itemValue = document.getElementById(`item-${id}`).innerHTML.split('<input')[0].trim();;
+        const recommenderEmail = e.target.value;
+        sendEmailtoRecommender(recommenderEmail, itemValue)
+        e.target.value = "";
+    }
+})
+
+const sendEmailtoRecommender = (email, itemValue) =>{
+    console.log(email);
+    const subject = `🚨 Alert! I Finally Watched ${itemValue}`;
+    
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailLink, '_blank');
+
+}
+const addRecommendersEmailBox = (id) => {
+    return `<input id="email-${id}" type="email" placeholder="Recommender's email">`;
+    
+};
+
 // Function to add item to completed list
-const addItemToCompleted = (itemValue) => {
-    itemsCompleted.innerHTML += `<li>${itemValue}</li><br>`;
+const addItemToCompleted = (itemValue, id) => {
+    let emailBox = addRecommendersEmailBox(id);
+    itemsCompleted.innerHTML += `<li id="item-${id}">${itemValue} ${emailBox} </li><br>`;
 };
 
 // Function to remove item from pending list
@@ -47,3 +73,43 @@ const addItemToPending = (item) => {
     itemsPending.insertAdjacentHTML("beforeend", listItem);
 }
 
+
+
+
+
+const body = `Hey! It's me, Tripti.
+
+Guess what? The unthinkable happened! 
+I finally watched one of your movie recommendations! 🎉
+
+I know, I know, it’s been a century since you first told me about it. 
+You’ve probably recommended another 73 movies since then, but hey, baby steps, right? 
+
+So, last night I settled in with your recommendation. 
+
+And let me tell you, 
+
+IT. WAS. EPIC. 
+
+Seriously, why didn’t you force me to watch it sooner? 
+Oh wait, you did. My bad. 
+
+Can we talk about the main character? 
+Because OMGGG, I am totally fangirling over here. 
+
+Also, that plot twist at the end?
+
+ I’m still recovering. I might need therapy. Or a sequel. Definitely a sequel.
+Please tell me there's a sequel!
+
+Hit me with another recommendation, and I promise I won’t take another millennium to watch it. 
+Maybe. 
+Probably. 
+Okay, let's not set unrealistic expectations, but I’ll definitely try!
+
+Thanks for being my persistent movie recommender. You have the patience of a saint, and I appreciate you not disowning me for my terrible procrastination skills. 
+
+Let’s catch up soon and dissect every glorious detail my eyes devoured during this movie. I’m armed with snacks and opinions.
+
+Cheers,
+Tripti`;
