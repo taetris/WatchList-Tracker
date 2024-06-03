@@ -1,10 +1,21 @@
  This project allows users to store movie recommendations, mark them as completed once watched, and send a custom or template thank-you message to the recommender.
 
-Features
+**Features**
 
-1. Add Movie Recommendations: Movie search results rendered using tvmaze API.
-2. Mark as Watched: Check off movies once watched.
-3. Custom Emailing: Redirects to mail agent with prefilled body and user provided email address.
+### Backend Features:
+
+- API Integration
+- Debouncer for API Calls
+- Email Integration
+- Dynamic List Management
+- Unique ID Generation
+
+  
+### Frontend Features:
+
+- Input Field with Search Suggestions
+- Dynamic Interaction Management
+- Email Redirects
 
 Installation
 
