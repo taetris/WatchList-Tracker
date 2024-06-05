@@ -14,6 +14,19 @@ body {
 
 }
 
+#suggestions {
+    position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: black;
+    color: white;
+    z-index: 1000;
+}
+
+
 .header {
     display: flex;
     align-items: center;

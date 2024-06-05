@@ -2,19 +2,29 @@ const itemsPending = document.getElementById("items_pending");
 const itemsCompleted = document.getElementById("items_completed");
 
 const input = document.getElementById("input");
+const suggestionsContainer = document.getElementById('suggestions');
+
+
 const debounceTime = 2000;
-// Event listener for adding items on "Enter" key press
+
+let timer;
 input.addEventListener("keyup", (e) =>{
     
     //implement debouncer here
+    // if(timer){
+    //     clearTimeout(timer);
+    // }
+    // timer = setTimeout(() => {
+    //     makeAPICall(input.value, showAPIResults, addItemToPending);
+    // }, debounceTime);
+    
     
     if(e.key === "Enter" && input.value.trim() !== "") {
         //search using api here
-        let query = input.value.trim();
+        let query = input.value.trim().toLowerCase();
         makeAPICall(query, showAPIResults, addItemToPending);
-
-
-        // addItemToPending(query);
+        console.log(query)
+        addItemToPending(query);
         input.value = "";
     }
 })
@@ -29,18 +39,18 @@ async function makeAPICall(query, showAPIResults, addItemToPending){
 
 
 const showAPIResults = (results) => {
-    const dropdownContainer = document.getElementById('searchDropdown');
-
     results.forEach((result) => {
-        let movieName = result.show.name;
-        const option = document.createElement('option');
-        option.value = movieName;
-        option.textContent = movieName;
-        dropdownContainer.appendChild(option);
+        // console.log(result.show.name);
+        const suggestionItem = document.createElement('li');
+        // suggestionItem.textContent = result.show.name;
+        suggestionsContainer.insertAdjacentHTML("beforeend", result.show.name);
+        
+        // suggestionItem.addEventListener('click', () => {
+        //     input.value = result;
+        //     suggestionsContainer.innerHTML = ''; 
+        // })
     })
-        // Clear previous results
-        dropdownContainer.innerHTML = '';
-    }
+}
 
 // Event listener for moving items between lists when checkbox is checked
 itemsPending.addEventListener("change", (e) => {
@@ -95,12 +105,24 @@ const createID = () => `${Date.now()}`;
 const createCheckBox = (itemID) =>{
     return `<input type="checkbox" id="checkbox-${itemID}"></input>`;
 
+
+    // const checkBox = document.createElement('input');
+    // checkBox.type = 'checkbox';
+    // checkBox.id = `checkbox-${itemID}`;
+    // return checkBox;
+    
 }
+
 const addItemToPending = (item) => {
     let id = createID();
     let checkBox = createCheckBox(id);
+    // const listItem = document.createElement('li');
+    // listItem.id = `item-${id}`;
+    // listItem.textContent = item; 
 
+    // listItem.appendChild(checkBox);
     const listItem = `<li id="item-${id}">${item} ${checkBox}</li>`;
+
     itemsPending.insertAdjacentHTML("beforeend", listItem);
 }
 
