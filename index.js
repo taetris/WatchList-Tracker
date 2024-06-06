@@ -2,10 +2,10 @@ const itemsPending = document.getElementById("items_pending");
 const itemsCompleted = document.getElementById("items_completed");
 
 const input = document.getElementById("input");
-const suggestionsContainer = document.getElementById('suggestions');
+const suggestionsContainer = document.querySelector('.suggestions ul');
 
 
-const debounceTime = 2000;
+const debounceTime = 1000;
 
 let timer;
 input.addEventListener("keyup", (e) =>{
@@ -23,34 +23,45 @@ input.addEventListener("keyup", (e) =>{
         //search using api here
         let query = input.value.trim().toLowerCase();
         makeAPICall(query, showAPIResults, addItemToPending);
-        console.log(query)
-        addItemToPending(query);
+        // console.log(query)
+        // addItemToPending(query);
         input.value = "";
     }
 })
 
 
 async function makeAPICall(query, showAPIResults, addItemToPending){
-    const req =  await fetch(`https://api.tvmaze.com/search/shows?q=${query}`);
-    const results = await req.json();
-    // console.log(res);
-    showAPIResults(results, addItemToPending);
+    try {
+        const req = await fetch(`https://api.tvmaze.com/search/shows?q=${query}`);
+        const results = await req.json();
+        if (results.length === 0) {
+            throw new Error('No results found');
+        }
+        showAPIResults(results, addItemToPending);
+    } catch (error) {
+        const errorItem = document.createElement('li');
+        errorItem.textContent = error.message;
+        suggestionsContainer.appendChild(errorItem);
+    }
 }
+
 
 
 const showAPIResults = (results) => {
     results.forEach((result) => {
         // console.log(result.show.name);
         const suggestionItem = document.createElement('li');
-        // suggestionItem.textContent = result.show.name;
-        suggestionsContainer.insertAdjacentHTML("beforeend", result.show.name);
-        
-        // suggestionItem.addEventListener('click', () => {
-        //     input.value = result;
-        //     suggestionsContainer.innerHTML = ''; 
-        // })
-    })
+        suggestionItem.textContent = result.show.name;
+        suggestionsContainer.appendChild(suggestionItem);
+    });
+    
 }
+
+suggestionsContainer.addEventListener('click', (e) => {
+    input.value = e.target.textContent;
+    addItemToPending(e.target.textContent);
+    suggestionsContainer.innerHTML = ''; 
+})
 
 // Event listener for moving items between lists when checkbox is checked
 itemsPending.addEventListener("change", (e) => {
