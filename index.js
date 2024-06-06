@@ -12,6 +12,7 @@ input.addEventListener("keyup", (e) =>{
     
     //implement debouncer here
     if(timer){
+        suggestionsContainer.innerHTML = '';
         clearTimeout(timer);
     }
     timer = setTimeout(() => {
