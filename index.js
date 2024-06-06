@@ -11,12 +11,12 @@ let timer;
 input.addEventListener("keyup", (e) =>{
     
     //implement debouncer here
-    // if(timer){
-    //     clearTimeout(timer);
-    // }
-    // timer = setTimeout(() => {
-    //     makeAPICall(input.value, showAPIResults, addItemToPending);
-    // }, debounceTime);
+    if(timer){
+        clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+        makeAPICall(input.value, showAPIResults, addItemToPending);
+    }, debounceTime);
     
     
     if(e.key === "Enter" && input.value.trim() !== "") {
