@@ -28,3 +28,6 @@ To install and run the Movie Recommendations Tracker, follow these steps:
    `cd todo-list`
   
 3. Open HTML file from browser.
+
+
+View at: https://effortless-entremet-609304.netlify.app/
