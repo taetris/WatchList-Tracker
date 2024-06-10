@@ -142,13 +142,12 @@ const addItemToPending = (item) => {
 
 // ---------------------------------------------------------------------
 
-const body = `Hey! It's me, Tripti.
+const body = `Hey! 
 
-Guess what? The unthinkable happened! 
-I finally watched one of your movie recommendations! 🎉
+Guess what? I finally watched one of your movie recommendations.
 
 I know, I know, it’s been a century since you first told me about it. 
-You’ve probably recommended another 73 movies since then, but hey, baby steps, right? 
+You’ve probably recommended another 73 movies since then.
 
 So, last night I settled in with your recommendation. 
 
@@ -172,9 +171,7 @@ Maybe.
 Probably. 
 Okay, let's not set unrealistic expectations, but I’ll definitely try!
 
-Thanks for being my persistent movie recommender. You have the patience of a saint, and I appreciate you not disowning me for my terrible procrastination skills. 
+Thanks for being my persistent movie recommender. You have the patience of a saint, and I appreciate you not disowning me yet. 
 
-Let’s catch up soon and dissect every glorious detail my eyes devoured during this movie. I’m armed with snacks and opinions.
-
-Cheers,
-Tripti`;
+Let’s catch up soon and dissect every glorious detail. I’m armed with snacks and opinions.
+`;
